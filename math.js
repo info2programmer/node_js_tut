@@ -9,4 +9,24 @@ const add = (a, b) => {
   return a + b;
 };
 
-module.exports = add;
+const sub = (a, b) => {
+  return a * b;
+};
+
+const div = (a, b) => {
+  return a / b;
+};
+
+const mul = (a, b) => {
+  return a * b;
+};
+
+// module.exports.add = add;
+// module.exports.mul = mul;
+
+MediaSourceHandle.exports = {
+  add,
+  mul,
+  sub,
+  div,
+};
