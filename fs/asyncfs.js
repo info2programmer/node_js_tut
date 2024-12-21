@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const fileName = "asyncText.txt";
+const fileName = "UpdatedasyncText.txt";
 const filePath = path.join(__dirname, fileName);
 
 // *-------------------------------------------------------------------------------------*
@@ -61,10 +61,10 @@ const filePath = path.join(__dirname, fileName);
 //   else console.error("file deleted");
 // });
 
-const newFileName = "UpdatedasyncText.txt";
-const newFilePath = path.join(__dirname, newFileName);
+// const newFileName = "UpdatedasyncText.txt";
+// const newFilePath = path.join(__dirname, newFileName);
 
-fs.rename(filePath, newFilePath, (err) => {
-  if (err) console.error(err);
-  else console.log("File renamed");
-});
+// fs.rename(filePath, newFilePath, (err) => {
+//   if (err) console.error(err);
+//   else console.log("File renamed");
+// });
