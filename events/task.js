@@ -75,7 +75,25 @@ const filePath = path.join(__dirname, fileName);
 // *  Call profile_update event
 // eventEmitter.emit("profile_update", { username: "info2programmer@gmail.com" });
 
-// * Stape - 4 Check Logs
+// *Stape 4 - Logout User
+eventEmitter.on("logout", async (args) => {
+  //   console.log(args);
+  try {
+    await fs.appendFile(
+      filePath,
+      `\n${args.username} has been logout :  at ${moment().format(
+        "MMMM Do YYYY, h:mm:ss a"
+      )}`
+    );
+    console.log(`Logout Successfully : ${args.username}`);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+eventEmitter.emit("logout", { username: "info2programmer@gmail.com" });
+
+// * Stape - 5 Check Logs
 eventEmitter.on("check_status", async () => {
   try {
     await fs.readFile(filePath, "utf-8").then((data) => {
