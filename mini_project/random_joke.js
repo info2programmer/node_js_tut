@@ -1,6 +1,11 @@
 import http from "http";
 import chalk from "chalk";
 
+/**
+ * Makes a GET request to the joke API and logs a random joke to the console.
+ * The joke is formatted with the setup in red and the punchline in blue
+ * with a red background.
+ */
 const getJoke = () => {
   const url = "http://www.official-joke-api.appspot.com/random_joke";
 
