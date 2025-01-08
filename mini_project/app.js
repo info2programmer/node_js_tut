@@ -9,6 +9,10 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+/**
+ * Shows a prompt to enter a file name and calls handelPrompt with the entered text
+ */
+
 const showFileNamePrompt = () => {
   //   console.log(chalk.bgCyan("Enter file name"));
   rl.question(chalk.bgCyan("Enter file name: "), handelPrompt);
