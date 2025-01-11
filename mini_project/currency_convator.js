@@ -25,18 +25,25 @@ https.get(url, (res) => {
       rl.question(
         "Enter the target currency (ex. INR, EUR, NPR): ",
         (currency) => {
-          const rate = rates[currency.toUpperCase()];
-          if (rate) {
-            console.log(
-              chalk.bgCyanBright(
-                `${amount} USD is approximately ${rate * amount} ${currency} `
-              )
-            );
-          } else {
+          try {
+            const rate = rates[currency.toUpperCase()];
+            if (rate) {
+              console.log(
+                chalk.bgCyanBright(
+                  `${amount} USD is approximately ${rate * amount} ${currency} `
+                )
+              );
+            } else {
+              console.log(
+                chalk.bgRedBright(`Please enter currency format correctly. `)
+              );
+            }
+          } catch (err) {
             console.log(
               chalk.bgRedBright(`Please enter currency format correctly. `)
             );
           }
+
           rl.close();
         }
       );
