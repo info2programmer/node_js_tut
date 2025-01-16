@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="card">
+      <h1>URL Shortener</h1>
+      <form id="urlShortenerForm">
+        <label for="url">Enter URL:</label><br />
+        <input
+          type="text"
+          id="url"
+          name="url"
+          placeholder="Enter the URL"
+          required
+        /><br />
+        <label for="customData">Custom Path (optional):</label><br />
+        <input
+          type="text"
+          id="customData"
+          name="customData"
+          placeholder="Enter custom path"
+        /><br />
+        <button type="submit">Shorten URL</button>
+      </form>
+      <h2>Short URL History</h2>
+      <style></style>
+      <ul id="history">
+        <li>
+          <a href="http://tinyurl.com/yb8r63vu" target="_blank" rel="noopener"
+            >http://tinyurl.com/yb8r63vu</a
+          >
+        </li>
+        <li>
+          <a href="http://tinyurl.com/y7q8rbq7" target="_blank" rel="noopener"
+            >http://tinyurl.com/y7q8rbq7</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      document
+        .getElementById("urlShortenerForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const formData = new FormData(event.target);
+
+          console.log(formData.get("url"));
+
+          //
+          const url = formData.get("url");
+          const customData = formData.get("customData");
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 50px;
+}
+input[type="text"] {
+  width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+}
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+#history {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#history li {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+#history li:hover {
+  background-color: #f9f9f9;
+  transform: scale(1.02);
+}
+#history a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+#history a:hover {
+  color: #0056b3;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 50%;
+  margin: 20px auto;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  text-align: center;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
