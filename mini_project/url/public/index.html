@@ -51,11 +51,26 @@
           event.preventDefault();
           const formData = new FormData(event.target);
 
-          console.log(formData.get("url"));
+          // console.log(formData.get("url"));
 
           //
           const url = formData.get("url");
           const customData = formData.get("customData");
+          // console.log(url, customData);
+          fetch("/shorten", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ url: url, custom_data: customData }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Success:", data);
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
         });
     </script>
   </body>
