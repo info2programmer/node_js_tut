@@ -67,9 +67,15 @@
             .then((response) => response.json())
             .then((data) => {
               console.log("Success:", data);
+              alert(data.msg);
             })
             .catch((error) => {
-              console.error("Error:", error);
+              alert(error);
+
+              // if(error.)
+            })
+            .finally(() => {
+              window.location.reload();
             });
         });
     </script>

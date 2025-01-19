@@ -55,8 +55,8 @@ const server = createServer(async (req, res) => {
 
       // Field Validation Code Start
       if (!url) {
-        res.writeHead(400, { "Content-Type": "text/plain" });
-        res.end("Missing url field");
+        res.writeHead(400, { "Content-Type": "text/json" });
+        res.end({ msg: "Missing url field" });
         return;
       }
       // Field Validation Code End
@@ -67,12 +67,12 @@ const server = createServer(async (req, res) => {
         custom_data || crypto.randomBytes(4).toString("hex");
       // console.log(Object.values(loadData).indexOf(url));
       if (Object.hasOwn(loadData, finalShortCode)) {
-        res.writeHead(400, { "Content-Type": "text/plain" });
-        res.end("Key already exists");
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ msg: "Key already exists" }));
         return;
       } else if (!Object.values(loadData).indexOf(url)) {
-        res.writeHead(400, { "Content-Type": "text/plain" });
-        res.end("URL already exists");
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ msg: "URL already exists" }));
         return;
       }
 
@@ -83,8 +83,8 @@ const server = createServer(async (req, res) => {
         JSON.stringify(loadData)
       );
 
-      res.writeHead(200, { "Content-Type": "text/plain" });
-      res.end("Data added successfully");
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ msg: "Data added successfully" }));
 
       // const filePath = path.resolve("public", "data.json");
       // await readFile(filePath, "utf-8", (err, data) => {
