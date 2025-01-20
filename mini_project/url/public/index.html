@@ -45,6 +45,10 @@
     </div>
 
     <script>
+      /**
+       * Fetches the shortened URLs from the server and renders them in the browser
+       * @return {Promise<void>}
+       */
       async function fetchURL() {
         fetch("/url-list", {
           method: "GET",
@@ -56,10 +60,11 @@
           .then((res) => {
             const historyList = document.getElementById("history");
             historyList.innerHTML = "";
+            if (res.data === null) return;
             Object.entries(res.data).map(([key, item]) => {
               const listItem = document.createElement("li");
               const link = document.createElement("a");
-              link.href = item;
+              link.href = `/${key}`;
               link.target = "_blank";
               link.rel = "noopener";
               link.textContent = key;
@@ -94,12 +99,13 @@
             .then((data) => {
               // console.log("Success:", data);
               alert(data.msg);
+              fetchURL();
             })
             .catch((error) => {
               alert(error.msg);
             })
             .finally(() => {
-              window.location.reload();
+              event.target.reset();
             });
         });
       fetchURL();

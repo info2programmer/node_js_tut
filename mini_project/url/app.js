@@ -45,8 +45,19 @@ const server = createServer(async (req, res) => {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ status: true, data: loadData }));
     } else {
+      const key = req.url.slice(1);
+      // console.log(url);
+      const loadData = await jsonFile();
+      const redirectUrl = loadData[key];
+      // console.log(redirectUrl);
+      if (redirectUrl) {
+        res.writeHead(302, { location: redirectUrl });
+        res.end();
+        return;
+      }
+
       res.writeHead(404, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ status: false, msg: "Not Found" }));
+      res.end(JSON.stringify({ status: true, data: `URL not found` }));
     }
   } else if (req.method === "POST" && req.url === "/shorten") {
     let body = "";
