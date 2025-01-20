@@ -45,6 +45,32 @@
     </div>
 
     <script>
+      async function fetchURL() {
+        fetch("/url-list", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((res) => {
+            const historyList = document.getElementById("history");
+            historyList.innerHTML = "";
+            Object.entries(res.data).map(([key, item]) => {
+              const listItem = document.createElement("li");
+              const link = document.createElement("a");
+              link.href = item;
+              link.target = "_blank";
+              link.rel = "noopener";
+              link.textContent = key;
+              listItem.appendChild(link);
+              historyList.appendChild(listItem);
+            });
+          })
+          .catch((error) => {
+            alert(`Some error occured dureing data fetch. Please try again`);
+          });
+      }
       document
         .getElementById("urlShortenerForm")
         .addEventListener("submit", function (event) {
@@ -66,18 +92,17 @@
           })
             .then((response) => response.json())
             .then((data) => {
-              console.log("Success:", data);
+              // console.log("Success:", data);
               alert(data.msg);
             })
             .catch((error) => {
-              alert(error);
-
-              // if(error.)
+              alert(error.msg);
             })
             .finally(() => {
               window.location.reload();
             });
         });
+      fetchURL();
     </script>
   </body>
 </html>

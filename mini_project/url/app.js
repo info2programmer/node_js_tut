@@ -2,6 +2,7 @@ import { createServer } from "http";
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
 import crypto from "crypto";
+import { stat } from "fs";
 
 const PORT = 3000;
 
@@ -39,9 +40,13 @@ const server = createServer(async (req, res) => {
       serverFile(res, path.resolve("public", "index.html"), "text/html");
     } else if (req.url === "/style.css") {
       serverFile(res, path.resolve("public", "style.css"), "text/css");
+    } else if (req.url === "/url-list") {
+      const loadData = await jsonFile();
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ status: true, data: loadData }));
     } else {
-      res.writeHead(404, { "Content-Type": "text/plain" });
-      res.end("Not Found");
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ status: false, msg: "Not Found" }));
     }
   } else if (req.method === "POST" && req.url === "/shorten") {
     let body = "";
@@ -55,8 +60,8 @@ const server = createServer(async (req, res) => {
 
       // Field Validation Code Start
       if (!url) {
-        res.writeHead(400, { "Content-Type": "text/json" });
-        res.end({ msg: "Missing url field" });
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ status: false, msg: "Missing url field" }));
         return;
       }
       // Field Validation Code End
@@ -68,11 +73,11 @@ const server = createServer(async (req, res) => {
       // console.log(Object.values(loadData).indexOf(url));
       if (Object.hasOwn(loadData, finalShortCode)) {
         res.writeHead(400, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ msg: "Key already exists" }));
+        res.end(JSON.stringify({ status: false, msg: "Key already exists" }));
         return;
       } else if (!Object.values(loadData).indexOf(url)) {
         res.writeHead(400, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ msg: "URL already exists" }));
+        res.end(JSON.stringify({ status: false, msg: "URL already exists" }));
         return;
       }
 
@@ -84,7 +89,7 @@ const server = createServer(async (req, res) => {
       );
 
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ msg: "Data added successfully" }));
+      res.end(JSON.stringify({ status: true, msg: "Data added successfully" }));
 
       // const filePath = path.resolve("public", "data.json");
       // await readFile(filePath, "utf-8", (err, data) => {
@@ -92,8 +97,8 @@ const server = createServer(async (req, res) => {
       // });
     });
   } else {
-    res.writeHead(405, { "Content-Type": "text/plain" });
-    res.end("Method Not Allowed");
+    res.writeHead(405, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ status: true, msg: "Methord Not Allowed" }));
   }
 });
 
