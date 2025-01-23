@@ -4,6 +4,11 @@ import path from "path";
 
 const app = express();
 
+// app.use(express.static("public"));
+
+const staticPath = path.join(import.meta.dirname, "public");
+app.use(express.static(staticPath));
+
 app.get("/", (req, res) => {
   return res.send("<h1>Hello World!</h1>");
 });
