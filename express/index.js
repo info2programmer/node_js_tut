@@ -1,5 +1,6 @@
 import express from "express";
 import { PORT } from "./env.js";
+import path from "path";
 
 const app = express();
 
@@ -30,6 +31,11 @@ app.get("/contact", (req, res) => {
         /><br />
         <button type="submit">Shorten URL</button>
       </form>`);
+});
+
+app.get("/greet", (req, res) => {
+  const greetPageFile = path.join(import.meta.dirname, "public", "index.html");
+  return res.sendFile(greetPageFile);
 });
 
 // const PORT = process.env.PORT || 3000;
