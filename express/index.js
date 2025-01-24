@@ -32,6 +32,13 @@ app.get("/profile/:username/artical/:slug", (req, res) => {
   );
 });
 
+app.get("/product", (req, res) => {
+  console.log(req.query);
+  return res.send(
+    `<h1>User search for ${req.query.search} and limit will be ${req.query.limit}</h1>`
+  );
+});
+
 app.get("/about", (req, res) => {
   return res.send("<h1>Hello About Page!</h1>");
 });
