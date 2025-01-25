@@ -8,6 +8,12 @@ const app = express();
 
 const staticPath = path.join(import.meta.dirname, "public");
 app.use(express.static(staticPath));
+app.use(express.urlencoded({ extended: false }));
+app.use((req, res) => {
+  res
+    .status(404)
+    .sendFile(path.join(import.meta.dirname, "public", "404.html"));
+});
 
 app.get("/", (req, res) => {
   const greetPageFile = path.join(import.meta.dirname, "public", "index.html");
@@ -44,24 +50,13 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/contact", (req, res) => {
-  return res.send(` <form id="urlShortenerForm">
-        <label for="url">Enter URL:</label><br />
-        <input
-          type="text"
-          id="url"
-          name="url"
-          placeholder="Enter the URL"
-          required
-        /><br />
-        <label for="customData">Custom Path (optional):</label><br />
-        <input
-          type="text"
-          id="customData"
-          name="customData"
-          placeholder="Enter custom path"
-        /><br />
-        <button type="submit">Shorten URL</button>
-      </form>`);
+  const conatctPage = path.join(import.meta.dirname, "public", "contact.html");
+  return res.sendFile(conatctPage);
+});
+
+app.post("/contact", (req, res) => {
+  console.log(req.body);
+  return res.send(`Ok`);
 });
 
 // const PORT = process.env.PORT || 3000;
