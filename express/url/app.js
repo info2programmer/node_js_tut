@@ -14,6 +14,14 @@ app.use(express.urlencoded({ extended: false }));
 const urlSchema = z.coerce.string().url();
 const shortCodeSchema = z.coerce.string().min(3).max(10);
 
+/**
+ * Reads data from the file `data/data.json` and returns it as an object.
+ * If the file doesn't exist, it is created with an empty object as its
+ * content. If any other error occurs, it is thrown.
+ *
+ * @returns {object} The data from the file, or an empty object if the file
+ * doesn't exist.
+ */
 const jsonFile = async () => {
   try {
     const filePath = path.resolve("data", "data.json");
