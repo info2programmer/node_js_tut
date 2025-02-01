@@ -2,7 +2,7 @@ import { z } from "zod";
 import { readFile, writeFile } from "fs/promises";
 import * as crypto from "crypto";
 import path from "path";
-import e, { Router } from "express";
+import { Router } from "express";
 
 const router = Router();
 const urlSchema = z.coerce.string().url();
