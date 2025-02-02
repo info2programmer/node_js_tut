@@ -1,12 +1,13 @@
 import { z } from "zod";
 import path from "path";
 import * as crypto from "crypto";
-import { writeFile } from "fs/promises";
+import { writeFile, readFile } from "fs/promises";
+import { jsonFile } from "../models/URL.model.js";
 
 const urlSchema = z.coerce.string().url();
 const shortCodeSchema = z.coerce.string().min(3).max(10);
 
-const PostData = (jsonFile) => async (req, res) => {
+const PostData = async (req, res) => {
   try {
     let finalShortCode = "";
     const { url, shortCode } = req.body;
@@ -39,4 +40,32 @@ const PostData = (jsonFile) => async (req, res) => {
   }
 };
 
-export { PostData };
+const getData = async (req, res) => {
+  const data = await readFile(path.join("views", "index.html"));
+  const links = await jsonFile();
+
+  return res.send(
+    data.toString().replace(
+      "{{links}}",
+      Object.entries(links)
+        .map(
+          ([shortCode, url]) =>
+            `<li><a href="/link/${shortCode}">${shortCode}</a></li>`
+        )
+        .join("")
+    )
+  );
+};
+
+const getLinkData = async (req, res) => {
+  try {
+    const key = req.params.shortCode;
+    const loadData = await jsonFile();
+    const redirectUrl = loadData[key];
+    return res.redirect(redirectUrl);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { PostData, getData, getLinkData };
