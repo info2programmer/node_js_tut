@@ -1,27 +1,12 @@
 import { z } from "zod";
 import path from "path";
 import * as crypto from "crypto";
-import { readFile, writeFile } from "fs/promises";
+import { writeFile } from "fs/promises";
 
 const urlSchema = z.coerce.string().url();
 const shortCodeSchema = z.coerce.string().min(3).max(10);
-const jsonFile = async () => {
-  try {
-    const filePath = path.resolve("data", "data.json");
-    const data = await readFile(filePath, "utf-8");
-    return JSON.parse(data || JSON.stringify({}));
-    // res.writeHead(200, { "Content-Type": "application/json" });
-    // res.end(data);
-  } catch (error) {
-    if (error.code === "ENOENT") {
-      writeFile(path.resolve("data", "data.json"), JSON.stringify({}));
-      return JSON.parse(JSON.stringify({}));
-    }
-    throw error;
-  }
-};
 
-const PostData = async (req, res) => {
+const PostData = (jsonFile) => async (req, res) => {
   try {
     let finalShortCode = "";
     const { url, shortCode } = req.body;
@@ -54,4 +39,4 @@ const PostData = async (req, res) => {
   }
 };
 
-export { PostData, jsonFile };
+export { PostData };
