@@ -4,16 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="student-report.css" />
   </head>
   <body>
-    <h1>Student Report card</h1>
+    <%- include("includes/header"); %>
+
+    <h1>Student Report Card</h1>
     <% for(let student of students){ %>
-    <div style="border: 1px solid black; border-radius: 20px; padding: 4px">
-      <p>Name : <%- student.name %></p>
-      <p>Email : <%- student.email %></p>
-      <p>Phone : <%- student.phone %></p>
+    <div class="student-card">
+      <p><strong>Name:</strong> <%- student.name %></p>
+      <p><strong>Email:</strong> <%- student.email %></p>
+      <p><strong>Phone:</strong> <%- student.phone %></p>
     </div>
     <br />
     <% } %>
+    <br /><br /><br /><br /><br />
+    <%- include("includes/footer"); %>
   </body>
 </html>
