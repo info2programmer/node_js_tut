@@ -1,7 +1,7 @@
 import { z } from "zod";
 import path from "path";
 import * as crypto from "crypto";
-import { writeFile, readFile } from "fs/promises";
+import { writeFile } from "fs/promises";
 import { jsonFile } from "../models/URL.model.js";
 
 const urlSchema = z.coerce.string().url();
@@ -41,20 +41,10 @@ const PostData = async (req, res) => {
 };
 
 const getData = async (req, res) => {
-  const data = await readFile(path.join("views", "index.html"));
+  // const data = await readFile(path.join("views", "index.html"));
   const links = await jsonFile();
 
-  return res.send(
-    data.toString().replace(
-      "{{links}}",
-      Object.entries(links)
-        .map(
-          ([shortCode, url]) =>
-            `<li><a href="/link/${shortCode}">${shortCode}</a></li>`
-        )
-        .join("")
-    )
-  );
+  return res.render("index", { links, host: req });
 };
 
 const getLinkData = async (req, res) => {

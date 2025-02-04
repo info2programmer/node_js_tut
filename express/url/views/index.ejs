@@ -20,7 +20,18 @@
       </form>
       <div class="link-history">
         <h2>Short Link History</h2>
-        {{links}}
+        <!-- Object.entries(links)
+        .map(
+          ([shortCode, url]) =>
+            `<li><a href="/link/${shortCode}">${shortCode}</a></li>`
+        )
+        .join("") -->
+
+        <% Object.entries(links).map(([shortCode, url]) => { %>
+        <li>
+          <a href="/link/<%=shortCode%>" target="_blank"><%=shortCode%></a>
+        </li>
+        <%})%>
       </div>
     </div>
   </body>
