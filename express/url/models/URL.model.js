@@ -1,6 +1,9 @@
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
+import { MongoClient, ServerApiVersion } from "mongodb";
 
+const uri =
+  "mongodb+srv://info2programmer:c7pFTikmeekyrA9t@cluster0.l5kk1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 /**
  * Reads data from the file `data/data.json` and returns it as an object.
  * If the file doesn't exist, it is created with an empty object as its
