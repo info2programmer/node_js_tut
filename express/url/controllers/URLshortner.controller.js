@@ -1,8 +1,6 @@
 import { z } from "zod";
-import path from "path";
 import * as crypto from "crypto";
-import { writeFile } from "fs/promises";
-import { jsonFile } from "../models/URL.model.js";
+import { getLinkByShortCode, jsonFile } from "../models/URL.model.js";
 
 const urlSchema = z.coerce.string().url();
 const shortCodeSchema = z.coerce.string().min(3).max(10);
@@ -27,12 +25,9 @@ const PostData = async (req, res) => {
     if (loadData[finalShortCode])
       return res.status(400).send("Short code already exists");
 
-    loadData[finalShortCode] = urldata.data;
+    // loadData[finalShortCode] = urldata.data;
     // console.log(loadData);
-    await writeFile(
-      path.resolve("data", "data.json"),
-      JSON.stringify(loadData)
-    );
+    await saveLink({ url, shortCode });
   } catch (error) {
     console.log(error);
   } finally {
@@ -50,9 +45,12 @@ const getData = async (req, res) => {
 const getLinkData = async (req, res) => {
   try {
     const key = req.params.shortCode;
-    const loadData = await jsonFile();
-    const redirectUrl = loadData[key];
-    return res.redirect(redirectUrl);
+    const link = await getLinkByShortCode(key);
+    //  c onst loadData = await jsonFile();
+    //   const redirectUrl = loadData[key];
+    if (!link) return res.redirect("/404");
+
+    return res.redirect(link.url);
   } catch (error) {
     console.log(error);
   }

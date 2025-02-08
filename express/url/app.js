@@ -1,5 +1,5 @@
 import express from "express";
-import { PORT } from "./env.js";
+// import { env } from "./config/env.js";
 import { shrortenRoutes } from "./routes/shorten.routes.js";
 import path from "path";
 import { studentRoutes } from "./routes/student.routes.js";
@@ -13,6 +13,8 @@ app.use(shrortenRoutes, studentRoutes);
 app.set("view engine", "ejs");
 // app.set("views")
 
-app.listen(PORT, () => {
+console.log(process.env.MONGODB_DATABASE);
+
+app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${PORT} : http://localhost:${PORT}`);
 });
